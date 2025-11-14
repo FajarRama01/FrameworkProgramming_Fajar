@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Daftar Warga Kelurahan</title>
@@ -14,5 +14,76 @@
             {{object.tanggal_registrasi}}
         </li>
     </ul>
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Warga - {{ object.nama_lengkap }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9fafb;
+            font-family: 'Poppins', sans-serif;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Detail Warga</h1>
+    </div>
+
+    <div class="container">
+        <div class="card mx-auto p-4" style="max-width: 600px;">
+            <h4 class="mb-3 text-center text-primary">{{ object.nama_lengkap }}</h4>
+            <hr>
+            <p><strong>NIK:</strong> {{ object.nik }}</p>
+            <p><strong>Alamat:</strong> {{ object.alamat }}</p>
+            <p><strong>Nomor Telepon:</strong> {{ object.no_telepon|default:"-" }}</p>
+            <p><strong>Tanggal Registrasi:</strong> {{ object.tanggal_registrasi|date:"d M Y, H:i" }}</p>
+            
+            <!-- ... (kode untuk menampilkan detail NIK, alamat, dll) ... -->
+            
+            <hr>
+            {% for aduan in object.pengaduan.all %}
+            <p><strong>Pengaduan:</strong> {{ aduan.judul }}</p>
+            <p><strong>Status:</strong> {{ aduan.get_status_display }}</p>
+            <p><strong>Deskripsi Aduan:</strong> {{ aduan.deskripsi }}</p>
+            {% empty %}
+                <li>Warga ini belum pernah membuat pengaduan.</li>
+            {% endfor %}
+
+            <div class="text-center mt-4">
+                <a href="{% url 'warga-list' %}" class="btn btn-back">← Kembali ke Daftar</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3 text-muted small">
+        &copy; 2025 Kelurahan Sejahtera
+    </footer>
 </body>
 </html>

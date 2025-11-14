@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Semua Pengaduan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body { background-color: #f8fafc; font-family: 'Poppins', sans-serif; }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            transition: 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .header {
+            background-color: #0d6efd;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            border-radius: 0 0 25px 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Semua Pengaduan Warga</h1>
+        <p class="mb-0">Daftar lengkap pengaduan dari seluruh warga kelurahan</p>
+    </div>
+
+    <div class="container">
+        <div class="row g-4">
+
+            {% for item in pengaduan_list %}
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h5 class="text-primary">{{ item.judul }}</h5>
+
+                    <p class="mb-1">
+                        <strong>Pelapor:</strong> {{ item.pelapor.nama_lengkap }}
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Status:</strong> {{ item.get_status_display }}
+                    </p>
+
+                    <p class="text-muted" style="font-size: 0.9rem;">
+                        {{ item.deskripsi|truncatewords:20 }}
+                    </p>
+
+                    <small class="text-muted">
+                        Dilaporkan pada: {{ item.tanggal_lapor|date:"d M Y, H:i" }}
+                    </small>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">Belum ada pengaduan tercatat.</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3 text-muted small">
+        &copy; 2025 Kelurahan Sejahtera
+    </footer>
+
+</body>
+</html>
