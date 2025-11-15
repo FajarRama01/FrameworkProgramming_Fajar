@@ -4,7 +4,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
-from .serializers import WargaSerializer
+from .serializers import WargaSerializer, PengaduanSerializer
+from rest_framework import viewsets
 
 
 class WargaListView(ListView):
@@ -56,13 +57,25 @@ class PengaduanDeleteView(DeleteView):
 #   Ada halaman konfirmasi sebelum menghapus
 #   Setelah hapus → redirect ke daftar pengaduan
 
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# class WargaListAPIView(ListAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class WargaDetailAPIView(RetrieveAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+class WargaViewSet(viewsets.ModelViewSet):
+    """
+    API CRUD lengkap untuk model Warga.
+    """
+    queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
+    serializer_class = PengaduanSerializer
+
 
 
 
