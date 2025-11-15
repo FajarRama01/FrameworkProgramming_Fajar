@@ -28,7 +28,6 @@
     </style>
 </head>
 <body>
-
     <div class="header">
         <h1>Semua Pengaduan Warga</h1>
         <p class="mb-0">Daftar lengkap pengaduan dari seluruh warga kelurahan</p>
@@ -36,7 +35,14 @@
 
     <div class="container">
         <div class="row g-4">
-
+            <a href="{% url 'pengaduan-tambah' %}" class="btn btn-primary mb-3">
+                Tambah Pengaduan Baru
+            </a>
+            <!-- Tombol kembali -->
+            <a href="{% url 'warga-list' %}" class="btn btn-secondary mb-3">
+                ← Kembali ke Daftar Warga
+            </a>
+            
             {% for item in pengaduan_list %}
             <div class="col-md-4">
                 <div class="card p-3">
