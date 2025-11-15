@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
+from .serializers import WargaSerializer
 
 
 class WargaListView(ListView):
@@ -53,6 +55,14 @@ class PengaduanDeleteView(DeleteView):
     success_url = reverse_lazy('pengaduan-list')
 #   Ada halaman konfirmasi sebelum menghapus
 #   Setelah hapus → redirect ke daftar pengaduan
+
+class WargaListAPIView(ListAPIView):
+    queryset = Warga.objects.all()
+    serializer_class = WargaSerializer
+
+class WargaDetailAPIView(RetrieveAPIView):
+    queryset = Warga.objects.all()
+    serializer_class = WargaSerializer
 
 
 
