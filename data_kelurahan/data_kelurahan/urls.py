@@ -20,6 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('warga/', include('warga.urls')), # Arahkan URL /warga/ ke aplikasi warga
-     path('api/', include('warga.api_urls')), # URL untuk API
+    path('api/', include('warga.api_urls')), # URL untuk API
 
 ]
